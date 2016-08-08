@@ -22,7 +22,7 @@ tap.test('Sends POST requests to https://api.github.com/repos/nodejs/node/status
   t.tearDown(() => prCommitsScope.done() && scope.done())
 
   supertest(app)
-    .post('/node/jenkins')
+    .post('/node/jenkins/start')
     .send(jenkinsPayload)
     .expect(201)
     .end((err, res) => {
@@ -48,7 +48,7 @@ tap.test('Forwards payload provided in incoming POST to GitHub status API', (t) 
   t.tearDown(() => prCommitsScope.done() && scope.done())
 
   supertest(app)
-    .post('/node/jenkins')
+    .post('/node/jenkins/start')
     .send(fixture)
     .expect(201)
     .end((err, res) => {
@@ -65,7 +65,7 @@ tap.test('Responds with 400 / "Bad request" when incoming request has invalid pa
   t.plan(1)
 
   supertest(app)
-    .post('/node/jenkins')
+    .post('/node/jenkins/start')
     .send(fixture)
     .expect(400, 'Invalid payload')
     .end((err, res) => {
